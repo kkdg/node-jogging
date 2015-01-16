@@ -3,6 +3,15 @@ express = require('express'),
 app     = express(),
 http    = require('http').Server(app),
 path    = require('path');
+io      = require('socket.io')(http);
+
+io.on('connection', function(socket){
+	console.log('A user has connected.')
+
+	io.on('disconnect', function(socket){
+		console.log('A user has disconnected.')
+	});
+});
 
 app.use(express.static(path.join( path.dirname(), './www/')));
 
